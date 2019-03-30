@@ -27,10 +27,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Connection to MongoDb
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/StoryScraper"  ;
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/StoryScraper";
+mongoose.connect(MONGODB_URI);
 
-mongoose.connect(MONGODB_URI,  { useNewUrlParser: true });
-
+// mongoose.connect('mongodb://localhost:27017/StoryScraper', { useNewUrlParser: true });
 
 // Import routes
 require("./routes/stories")(app);

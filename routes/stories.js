@@ -53,9 +53,8 @@ module.exports = function(app){
     });
 
     //Get route for grabbing an specific story populated with it's comment
-    app.get("/stories/:id", function(){});
+    // app.get("/stories/:id", function(){});
 
-    //POST for creating/updating a comment on a Story
-    app.post("/stories/:id", function(){});
-
+    // //POST for creating/updating a comment on a Story
+    // app.post("/stories/:id", function(){});
 };
