@@ -1,0 +1,28 @@
+/* *:not(path):not(g) {
+      color:                    hsla(210, 100%, 100%, 0.9) !important;
+      background:               hsla(210, 100%,  50%, 0.5) !important;
+      outline:    solid 0.25rem hsla(210, 100%, 100%, 0.5) !important;
+      box-shadow: none !important;
+  } */
+.bg-1{
+    background: white;
+}
+
+.bg-2 {  /*PARALLAX*/
+    background: black url("../images/parallax.jpg") center / cover; 
+    height: 500px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow: auto;
+}
+
+.jumbotron {
+    margin-bottom: 0 !important;
+}
+
+.vcenter {
+
+      align-items: center;
+      display: flex;
+      justify-content: center;
+  }

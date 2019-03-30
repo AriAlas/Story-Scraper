@@ -1,9 +1,11 @@
 // Dependencies
-var express = requier("express");
+var express = require("express");
 var app = express();
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var PORT = process.env.port || 9696;
+var path = require("path");
+
 
 
 
@@ -17,17 +19,21 @@ app.use(logger("dev"));
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 
-
 // Set Handlebars.
-var exphbs = require("express-handlebars");
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+//Making public folder static
+app.use(express.static("public"));
 
 // Connection to MongoDb
-mongoose.connect("mongodb://localhost/StoryScraper", {useNewUrlParser: true});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
 
 // Import routes
-require("./routes/stories");
+require("./routes/stories")(app);
 
 // Server begins listening
 app.listen(PORT, function(){
