@@ -9,7 +9,7 @@ var db = require("../models");
 
 module.exports = function(app){
     //Get route to scrape https://www.quotev.com/nonfiction/c/Short-Stories and save them in Database
-    app.get("/scrape", function(req, res){
+    app.get("/", function(req, res){
         axios.get("https://www.quotev.com/nonfiction/c/Short-Stories").then(function(response){
 
         // initializing cheerio in $
@@ -37,7 +37,7 @@ module.exports = function(app){
         });
     });
         // Send a message to myself or client
-        res.send("complete")
+        res.redirect("/index");
    
         });
       
@@ -46,15 +46,16 @@ module.exports = function(app){
     });
 
     //Get for retrieving all Stories from database
-    app.get("/", function(req, res){
+    app.get("/index", function(req, res){
         db.Story.find({}).then(function(story){
             res.render("index", {story:story})
         })
     });
 
-    //Get route for grabbing an specific story populated with it's comment
+    // //Get route for grabbing an specific story populated with it's comment
     // app.get("/stories/:id", function(){});
 
     // //POST for creating/updating a comment on a Story
     // app.post("/stories/:id", function(){});
+
 };
