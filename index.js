@@ -27,9 +27,9 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Connection to MongoDb
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/StoryScraper"  ;
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI,  { useNewUrlParser: true });
 
 
 // Import routes
