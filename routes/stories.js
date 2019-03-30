@@ -32,12 +32,13 @@ module.exports = function(app){
   
        
         // Catching errors
-        }).catch(function(err){
-            console.log(err);
+        }).then(function(){
+            
+            res.redirect("/index");
         });
     });
         // Send a message to myself or client
-        res.redirect("/index");
+        
    
         });
       
