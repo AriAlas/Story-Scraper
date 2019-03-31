@@ -1,6 +1,25 @@
 $(document).ready(function(){
 
-    $("#modalbtn").click(function(){
-      $("#exampleModalCenter").modal();
-    });
+  
+$("#addcomment").on("click", function(e){
+  e.preventDefault();
+
+  var thisid = $(this).attr("data-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/stories/" + thisid,
+    data: {
+      author : $("#author").val().trim(),
+      body: $("#body").val().trim()
+    }
+  }).then(function(data){
+
+    console.log(data);
+
   });
+});
+
+
+});
+

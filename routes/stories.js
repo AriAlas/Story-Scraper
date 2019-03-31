@@ -25,6 +25,7 @@ module.exports = function(app){
             result.title = $(element).find("h1").text();
             result.link = $(element).find("a").attr("href");
             result.summary = $(element).find(".descr").text();
+
              // Creating Stories and saving them to MongoDB
         db.Story.create(result).then(function(dbStory){ 
             console.log(dbStory);
@@ -54,9 +55,20 @@ module.exports = function(app){
     });
 
     // //Get route for grabbing an specific story populated with it's comment
-    // app.get("/stories/:id", function(){});
+    app.get("/stories/:id", function(req, res){
+        db.Story.findOne({_id : req.params.id}).populate("comment").then(function(response){
+            res.json(response);
+        }).catch(function(err){
+            console.log(err);
+        });
 
-    // //POST for creating/updating a comment on a Story
-    // app.post("/stories/:id", function(){});
+    });
+
+    //POST for creating/updating a comment on a Story
+    app.post("/stories/:id", function(req, res){
+        db.Comment.create(req.body).then(function(dbComment){
+            return db.Article.findOneAndUpdate({_id:req.params.id}, {comment: dbComment._id},{new:true})
+        });
+    });
 
 };
