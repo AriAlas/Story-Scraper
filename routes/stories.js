@@ -28,13 +28,10 @@ module.exports = function(app){
 
              // Creating Stories and saving them to MongoDB
         db.Story.create(result).then(function(dbStory){ 
-            console.log(dbStory);
+            // console.log(dbStory);
             
-  
-       
         // Catching errors
         }).then(function(){
-            
             res.redirect("/index");
         });
     });
@@ -49,13 +46,16 @@ module.exports = function(app){
 
     //Get for retrieving all Stories from database
     app.get("/index", function(req, res){
-        db.Story.find({}).then(function(story){
+        db.Story.find({}).populate("comment").then(function(story){
+
+            // console.log(story);
             res.render("index", {story:story})
         })
     });
 
-    // //Get route for grabbing an specific story populated with it's comment
-    app.get("/stories/:id", function(req, res){
+
+     // //Get route for grabbing an specific story populated with it's commentS
+     app.get("/stories/:id", function(req, res){
         db.Story.findOne({_id : req.params.id}).populate("comment").then(function(response){
             res.json(response);
         }).catch(function(err){
@@ -63,12 +63,17 @@ module.exports = function(app){
         });
 
     });
-
-    //POST for creating/updating a comment on a Story
-    app.post("/stories/:id", function(req, res){
+     //POST for creating a comment on a Story
+     app.post("/stories/:id", function(req, res){
         db.Comment.create(req.body).then(function(dbComment){
-            return db.Article.findOneAndUpdate({_id:req.params.id}, {comment: dbComment._id},{new:true})
+            // console.log(req.body);
+            return db.Story.findOneAndUpdate({_id:req.params.id},{$push:{comment: dbComment._id, author: dbComment.author, body:dbComment.body}},{new:true, upsert: true});
+            // console.log(dbComment);
+            
+        }).then(function(dbStory){
+            res.json(dbStory);
         });
+        
     });
 
 };

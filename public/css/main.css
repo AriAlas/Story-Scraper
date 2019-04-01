@@ -26,3 +26,20 @@
       display: flex;
       justify-content: center;
   }
+
+  #thescraper {
+      background: none;
+      border: 1px solid #FFCF2C;
+      color: #FFCF2C;
+      text-decoration: none;
+      padding : 5px;
+      border-radius: 6px;
+      margin: 5px;
+      
+  }
+
+  #thescraper:hover {
+      
+      border: 1px solid #FFF;
+      color: white;
+  }

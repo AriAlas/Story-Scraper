@@ -1,7 +1,10 @@
 $(document).ready(function(){
 
+
+
   
-$("#addcomment").on("click", function(e){
+$(".addcomment").on("click", function(e){
+
   e.preventDefault();
 
   var thisid = $(this).attr("data-id");
@@ -14,9 +17,8 @@ $("#addcomment").on("click", function(e){
       body: $("#body").val().trim()
     }
   }).then(function(data){
-
     console.log(data);
-
+   
   });
 });
 
