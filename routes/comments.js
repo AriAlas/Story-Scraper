@@ -8,11 +8,13 @@ var db = require("../models");
 
 module.exports = function(app){
 
-    app.get("/comments", function(req, res){
-        db.Comment.find({}).then(function(dbComment){
-            console.log(dbComment);
-            res.json(dbComment)
-        });
+    //Get for retrieving all Stories from database
+    app.get("/index", function(req, res){
+        db.Comment.find({}).then(function(comment){
+
+            // console.log(story);
+            res.render("index", {comment:comment})
+        })
     });
 
 };

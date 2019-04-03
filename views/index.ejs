@@ -2,7 +2,7 @@
 
 <div class="jumbotron jumbotron-fluid bg-1">
   <div class="container">
-    <h1 class="display-4">True Story</h1>
+    <h1 class="display-4">Oscar Wilde</h1>
   </div>
 </div>
 
@@ -10,8 +10,8 @@
   <div class="container-fluid bg-2 vcenter text-center ">
   <div class="row">
   <div class="col">
-    <h3 style = "color:#FFCF2C;">From real story tellers</h3>
-    <a  href = "/" class = "" id = "thescraper">Get Stories</a>
+    <h3 style = "color:#FFCF2C;">Oscar Wilde Most Famoues Quotes</h3>
+    <a  href = "/scrape" class = "" id = "thescraper">Get Quotes</a>
   </div>
   </div>
   </div>
@@ -27,19 +27,19 @@
                
             </div>
         <div class="card-body">
-            <h5 class="card-title"> <%=story[i].title%></h5>
-            <p class="card-text"><%=story[i].summary%></p>
+           <!--<h5 class="card-title"> <%=story[i].title%></h5>-->
+            <p class="card-text"><%=story[i].quote%></p>
             <a href="<%=story[i].link%>" class="btn btn-primary">Read</a>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%=story[i].title%>" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%=story[i]._id%>" aria-expanded="false" aria-controls="collapseExample">
              Comments
             </button>
             <hr>
-            <div class="collapse " id="<%=story[i].title%>">
+            <div class="collapse " id="<%=story[i]._id%>">
           <div class="card card-body">
           <!--prev comments-->
 
           <div class = "commentsdump">
-          <%for (var j = 0; j < story[i].comment.length; i++) {%> 
+          <%for (var j = 0; j < story[i].comment.length; j++) {%> 
 
           <h5><%= story[i].comment[j].author%></h5>
           <p><%= story[i].comment[j].body%></p>
@@ -50,19 +50,19 @@
           </div>
           <!--add comments form-->
           <div>
-          <form>
+ 
 
           <form>
   <div class="form-group" method = "POST">
     <label for="author">Author:</label>
-    <input  class="form-control" id="author" name="author" placeholder="Your name">
+    <input  class="form-control author"  name="author"  placeholder="Your name">
   </div>
 
          <div class="form-group">
          <label>Comment:</label>
-         <textarea class="form-control" id="body" name="body" rows="3" placeholder="Your comment"></textarea>
+         <textarea class="form-control body"  name="body" rows="3" placeholder="Your comment"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary addcomment"  data-id = <%=story[i]._id%>>Submit</button>
+        <button type="submit" class="btn btn-primary addcomment" >Submit</button>
 
           </form>
           </div>

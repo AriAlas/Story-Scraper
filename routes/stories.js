@@ -9,8 +9,8 @@ var db = require("../models");
 
 module.exports = function(app){
     //Get route to scrape https://www.quotev.com/nonfiction/c/Short-Stories and save them in Database
-    app.get("/", function(req, res){
-        axios.get("https://www.quotev.com/nonfiction/c/Short-Stories").then(function(response){
+    app.get("/scrape", function(req, res){
+        axios.get("https://www.brainyquote.com/lists/authors/top_10_oscar_wilde_quotes").then(function(response){
 
         // initializing cheerio in $
         var $ = cheerio.load(response.data);
@@ -18,34 +18,32 @@ module.exports = function(app){
         
         
         // Grabbing data from DIV class=innerquiz
-        $(".innerquiz").each(function(i, element){
+        $(".quoteContent").each(function(i, element){
             var result = {};
 
             // properties of results objects
-            result.title = $(element).find("h1").text();
+            
             result.link = $(element).find("a").attr("href");
-            result.summary = $(element).find(".descr").text();
+            result.quote = $(element).find("p").text();
+            console.log(result);
 
              // Creating Stories and saving them to MongoDB
+             
         db.Story.create(result).then(function(dbStory){ 
-            // console.log(dbStory);
-            
-        // Catching errors
-        }).then(function(){
-            res.redirect("/index");
-        });
-    });
-        // Send a message to myself or client
-        
-   
-        });
+            console.log(dbStory);
       
-
-        
+    }).catch(function(err){
+        console.log(err);
     });
+   
+    });
+    res.redirect("/");
+});
+   
+});
 
     //Get for retrieving all Stories from database
-    app.get("/index", function(req, res){
+    app.get("/", function(req, res){
         db.Story.find({}).populate("comment").then(function(story){
 
             // console.log(story);
