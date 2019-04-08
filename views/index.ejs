@@ -29,7 +29,7 @@
         <div class="card-body">
            <!--<h5 class="card-title"> <%=story[i].title%></h5>-->
             <p class="card-text"><%=story[i].quote%></p>
-            <a href="<%=story[i].link%>" class="btn btn-primary">Read</a>
+           
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%=story[i]._id%>" aria-expanded="false" aria-controls="collapseExample">
              Comments
             </button>
@@ -62,7 +62,7 @@
          <label>Comment:</label>
          <textarea class="form-control body"  name="body" rows="3" placeholder="Your comment"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary addcomment" >Submit</button>
+        <button type="submit" class="btn btn-primary addcomment" data-id="<%=story[i]._id%>">Submit</button>
 
           </form>
           </div>
